@@ -1,3 +1,4 @@
+var port = process.env.PORT || 80;
 var express = require('express');
 var app = express();
 
@@ -7,10 +8,10 @@ app.get('/data', function(req, res){
 
 app.use(express.static(__dirname + '/public'));
 
-app.listen(process.env.PORT, process.env.IP);
+app.listen(port);
 
 function getStatsInfoJson() {
     return {
-        "data" : [232, 242, 32, 342, 100, 98]
+        "data" : [232, 242, 32, 342, 100, 97]
     };
 }
