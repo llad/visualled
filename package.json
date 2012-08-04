@@ -1,10 +1,17 @@
 {
-  "name": "visualled",
-  "description": "visualizations plus a testing framework",
-  "version": "0.0.1",
-  "private": true,
-  "dependencies": {
-    "express": "3.x",
-    "express-resource": "0.x"
-  }
+    private: true,
+    dependencies: {
+        express: '3.x',
+        express - resource: '0.x'
+    },
+    name: 'visualled',
+    description: 'visualizations plus a testing framework',
+    scripts: {
+        start: 'server.js'
+    },
+    version: '0.0.1',
+    subdomain: 'visualled',
+    engines: {
+        node: '0.6.x'
+    }
 }
