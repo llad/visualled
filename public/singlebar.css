@@ -1,0 +1,12 @@
+
+.chart {
+    font: 10px sans-serif;
+}
+
+.chart div {
+    background-color: steelblue;
+    text-align: right;
+    padding: 4px;
+    margin: 1px;
+    color: white;
+}
