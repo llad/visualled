@@ -1,3 +1,4 @@
+var port = process.env.PORT || 80;
 var express = require('express');
 var app = express();
 
@@ -7,7 +8,7 @@ app.get('/data', function(req, res){
 
 app.use(express.static(__dirname + '/public'));
 
-app.listen(process.env.PORT);
+app.listen(port);
 
 function getStatsInfoJson() {
     return {
