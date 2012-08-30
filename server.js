@@ -15,6 +15,6 @@ app.listen(port);
 
 function getStatsInfoJson() {
     return {
-        "data" : [232, 242, 32, 342, 100, 97]
+        "data" : [232, 242, 32, 342, 100, 96]
     };
 }
