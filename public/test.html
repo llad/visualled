@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script type="text/javascript" src="d3.v2.js"></script>
+  </head>
+  <body>
+    <script type="text/javascript">
+    
+    var svg = d3.select("body").append("svg")
+        .attr("class", "chart");
+
+
+svg.selectAll("circle")
+    .data([32, 57, 112, 293])
+  .enter().append("circle")
+    .attr("cy", 90)
+    .attr("cx", String)
+    .attr("r", Math.sqrt)
+    .style("fill", "steelblue");
+    
+    </script>
+  </body>
+</html>

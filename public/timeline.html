@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <script type="text/javascript" src="d3.v2.js"></script>
+    <script type="text/javascript" src="timeline.js"></script>
+<style>  
+
+#example {
+  margin-left: -20px;
+}
+
+.line {
+  fill: none;
+  stroke: #000;
+  stroke-width: 1.5px;
+}
+
+.area {
+  fill: #969696;
+}
+
+.attention {
+  background: yellow;
+  margin: -4px;
+  padding: 4px;
+}
+</style>
+
+  </head>
+  <body>
+  <div id="example"></div>
+<script>
+
+d3.csv("sp500.csv", function(data) {
+  var formatDate = d3.time.format("%b %Y");
+
+  d3.select("#example")
+      .datum(data)
+    .call(timeSeriesChart()
+      .x(function(d) { return formatDate.parse(d.date); })
+      .y(function(d) { return +d.price; })
+      .width(600)
+      .height(600)
+      .margin({top: 40, right: 40, bottom: 40, left: 40}));
+});
+
+</script>
+
+  </body>
+</html>

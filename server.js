@@ -1,3 +1,6 @@
+// simple node.js server for situations where a server is interesting.
+
+
 var port = process.env.PORT || 80;
 var express = require('express');
 var app = express();
