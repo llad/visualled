@@ -1,1 +1,0 @@
-{"ts":1343958007668,"silentsave":true,"restoring":false,"patch":[[{"diffs":[[1,"\n.chart {\n    font: 10px sans-serif;\n}\n\n.chart div {\n    background-color: steelblue;\n    text-align: right;\n    padding: 4px;\n    margin: 1px;\n    color: white;\n}"]],"start1":0,"start2":0,"length1":0,"length2":163}]],"length":163}
