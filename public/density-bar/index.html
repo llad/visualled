@@ -1,29 +1,15 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <script type="text/javascript" src="d3.v2.js"></script>
-    <script type="text/javascript" src="timeline.js"></script>
-<style>  
+    <script type="text/javascript" src="../d3.v2.js"></script>
+<style>
 
-#example {
-  margin-left: -20px;
+.chart rect {
+  stroke: white;
+  fill: steelblue;
 }
 
-.line {
-  fill: none;
-  stroke: #000;
-  stroke-width: 1.5px;
-}
 
-.area {
-  fill: #969696;
-}
-
-.attention {
-  background: yellow;
-  margin: -4px;
-  padding: 4px;
-}
 </style>
 
   </head>
@@ -32,32 +18,27 @@
 
   
 <script>
-function myCallback(spreadsheetdata) {
-  // do something with spreadsheet data here
 
-  var formatDate = d3.time.format("%b %Y");
-  
-  var data = [];
-  for (var i = 0; i < spreadsheetdata.feed.entry.length; i++) {
-      var entry = spreadsheetdata.feed.entry[i];
-      var row = {};
-      row.price = entry.gsx$price.$t;
-      row.date = entry.gsx$date.$t;
-      data[i] = row;
-  };
+var data = [4, 8, 15, 16, 23, 42];
 
-  d3.select("#example")
-      .datum(data)
-    .call(timeSeriesChart()
-      .x(function(d) { return formatDate.parse(d.date); })
-      .y(function(d) { return +d.price; }));
-};
+var chart = d3.select("body").append("svg")
+  .attr("class", "chart")
+  .attr("height", 420)
+  .attr("width", 20 * data.length);
+
+
+var y = d3.scale.linear()
+  .domain([0, d3.max(data)])
+  .range([0, 420]);
+
+chart.selectAll("rect")
+  .data(data)
+.enter().append("rect")
+  .attr("x", function(d, i) { return i * 20; })
+  .attr("height", y)
+  .attr("width", 20);
 
 </script>
-
-  
-<script src="https://spreadsheets.google.com/feeds/list/0Agxrt1aeoXHOdDRDQlExeE9GLWZkd2NEZElkUUVyZmc/od6/public/values?alt=json-in-script&callback=myCallback"></script>
-
 
 
   </body>
