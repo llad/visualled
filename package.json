@@ -1,16 +1,14 @@
 {
     "private": true,
     "dependencies": {
-        "express": "3.x"
+        "express": "*"
     },
     "devDependencies": {
-        "vows": "*"
     },
     "name": "visualled",
     "description": "visualizations plus a testing framework",
     "scripts": {
-        "start": "server.js",
-        "test": "vows --spec"
+        "start": "server.js"
     },
     "version": "0.0.1",
     "subdomain": "visualled",
