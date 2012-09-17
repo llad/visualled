@@ -64,9 +64,9 @@ svg.selectAll(".bar")
     .data(data)
   .enter().append("rect")
     .attr("class", function(d, i) { return d < 0 ? "bar negative" : "bar positive"; })
-    .attr("y", function(d, i) { return d < 0 ? y(0) : y(d); })
+    .attr("y", function(d, i) { return y(Math.max(0, d)); })
     .attr("x", function(d, i) { return x(i); })
-    .attr("height", function(d, i) { return d < 0 ? y(d)-y(0) : y(0)-y(d); })
+    .attr("height", function(d, i) { return Math.abs( y(d) - y(0) ); })
     .attr("width", x.rangeBand());
 
 svg.append("g")
