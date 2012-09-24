@@ -3,21 +3,34 @@
 <html>
   <head>  
     <script type="text/javascript" src="../d3.v2.js" charset="utf-8" ></script>
+    <script type="text/javascript" src="density-bar.js"></script>
 <style>
 
-.chart rect {
-  stroke: white;
-  fill-opacity: .6;
-  fill: steelblue;
 
-}
-.bar.positive {
+.positive {
   fill: steelblue;
+  stroke: steelblue;
+  stroke-width: 1px;
+  stroke-opacity: .5;
+  shape-rendering: crispEdges;
 }
 
-.bar.negative {
+.negative {
   fill: brown;
+  stroke: brown;
+  stroke-width: 1px;
+  stroke-opacity: .5;
+  shape-rendering: crispEdges;
 }
+
+line.positive {
+  stroke: steelblue;
+}
+
+line.negative {
+  stroke: brown;
+}
+
 
 .axis text {
   font: 10px sans-serif;
@@ -29,6 +42,18 @@
   shape-rendering: crispEdges;
 }
 
+.zero path {
+  fill: none;
+  stroke: lightgray;
+  shape-rendering: crispEdges;
+}
+
+line.totalror {
+  fill: none;
+  stroke: #000;
+  stroke-width: 1px;
+  shape-rendering: crispEdges;
+}
 
 </style>
   
@@ -39,61 +64,31 @@
   
 <script>
 
-//var data = [0.012, -0.025, 0.008, 0.023, -0.009, 0.005];
-    
-
 function myCallback(spreadsheetdata) {
   // do something with spreadsheet data here
 
-    var margin = {top: 30, right: 10, bottom: 10, left: 50},
-        width = 420 - margin.left - margin.right,
-        height = 420 - margin.top - margin.bottom,
-        data = [];
-    
-    for (var i = 0; i < spreadsheetdata.feed.entry.length; i++) {
-        var entry = spreadsheetdata.feed.entry[i];
-        var row = {};
-        row = entry.gsx$return.$t;
-        data[i] = Number(row);
-    };
-    
-    var x = d3.scale.ordinal()
-        .domain(d3.range(data.length))
-        .rangeRoundBands([0, width], .2);
-    
-    var y = d3.scale.linear()
-        .domain(d3.extent(data))
-        .range([height, 0])
-        .nice();
+  var formatDate = d3.time.format("%b %Y"),
+    data1 = [],
+    totalror;
     
     
-    var svg = d3.select("body").append("svg")
-        .attr("width", width + margin.left + margin.right)
-        .attr("height", height + margin.top + margin.bottom)
-      .append("g")
-        .attr("transform", "translate(" + margin.left + "," + margin.top + ")");
-    
-    svg.selectAll(".bar")
-        .data(data)
-      .enter().append("rect")
-        .attr("class", function(d, i) { return d < 0 ? "bar negative" : "bar positive"; })
-        .attr("y", function(d, i) { return y(Math.max(0, d)); })
-        .attr("x", function(d, i) { return x(i); })
-        .attr("height", function(d, i) { return Math.abs( y(d) - y(0) ); })
-        .attr("width", x.rangeBand());
-    
-    svg.append("g")
-        .attr("class", "y axis")
-        .call(d3.svg.axis().scale(y).orient("left"));
-    
-    svg.append("g")
-        .attr("class", "x axis")
-      .append("line")
-        .attr("y1", y(0))
-        .attr("y2", y(0))
-        .attr("x1", 0)
-        .attr("x2", width); // TODO: determine width dynamically
+  for (var i = 0; i < spreadsheetdata.feed.entry.length; i++) {
+      var entry = spreadsheetdata.feed.entry[i];
+      var row = {};
+      row.inv = entry.gsx$investment.$t;
+      row.ror = entry.gsx$return.$t;
+      row.allocation = entry.gsx$allocation.$t;
+      totalror = entry.gsx$totalreturn.$t;
+      data1[i] = row;
+  };
 
+  d3.select("#example")
+      .datum(data1)
+    .call(columnChart()
+      .x(function(d) { return d.inv; })
+      .y(function(d) { return +d.ror; })
+      .allocation(function(d) { console.log("feed"+ d.allocation); return +d.allocation; })
+      .totalror(+totalror));
 };
 
 </script>

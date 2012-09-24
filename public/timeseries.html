@@ -49,7 +49,7 @@ function myCallback(spreadsheetdata) {
   d3.select("#example")
       .datum(data)
     .call(timeSeriesChart()
-      .x(function(d) { return formatDate.parse(d.date); })
+      .x(function(d) { console.log("hello"); return formatDate.parse(d.date); })
       .y(function(d) { return +d.price; }));
 };
 

@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<html>
+  <head>  
+    <script type="text/javascript" src="../d3.v2.js" charset="utf-8" ></script>
+    <script type="text/javascript" src="column-chart.js"></script>
+<style>
+
+.chart rect {
+  stroke: white;
+  fill-opacity: .6;
+  fill: steelblue;
+
+}
+.bar.positive {
+  fill: steelblue;
+}
+
+.bar.negative {
+  fill: brown;
+}
+
+.axis text {
+  font: 10px sans-serif;
+}
+
+.axis path, .axis line {
+  fill: none;
+  stroke: #000;
+  shape-rendering: crispEdges;
+}
+
+
+</style>
+  
+  </head>
+  <body>
+  <div id="example"></div>
+
+  
+<script>
+
+var data = [["A",0.012], ["B",-0.025], ["C",0.008], ["D",0.023], ["E",-0.009], ["F", 0.005]];
+
+
+d3.select("#example")
+  .datum(data)
+    .call(columnChart()
+      .x(function(d, i) { return d[0]; })
+      .y(function(d, i) { return d[1]; }));
+
+</script>
+
+
+  </body>
+</html>
