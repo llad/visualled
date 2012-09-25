@@ -1,9 +1,10 @@
 <!DOCTYPE html>
 <meta charset="utf-8">
 <html>
-  <head>  
-    <script type="text/javascript" src="../d3.v2.js" charset="utf-8" ></script>
-    <script type="text/javascript" src="density-bar.js"></script>
+  <head>
+    <script src="http://d3js.org/d3.v2.min.js?2.10.0"></script>
+    <!-- for c9.io dev --> <script type="text/javascript" src="../d3.v2.js" charset="utf-8" ></script>
+    <script type="text/javascript" src="density-column.js"></script>
 <style>
 
 
@@ -85,10 +86,13 @@ function myCallback(spreadsheetdata) {
   d3.select("#example")
       .datum(data1)
     .call(columnChart()
+      .width(960)
+      .height(500)
       .x(function(d) { return d.inv; })
       .y(function(d) { return +d.ror; })
-      .allocation(function(d) { console.log("feed"+ d.allocation); return +d.allocation; })
-      .totalror(+totalror));
+      .allocation(function(d) { return +d.allocation; })
+      .totalror(+totalror)
+      .yTickFormat("p"));
 };
 
 </script>

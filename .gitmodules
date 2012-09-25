@@ -1,0 +1,3 @@
+[submodule "public/column-chart"]
+	path = public/column-chart
+	url = git@gist.github.com:3766585.git

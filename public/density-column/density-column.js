@@ -3,6 +3,7 @@ function columnChart() {
     width = 420,
     height = 420,
     xRoundBands = 0.2,
+    yTickFormat = ".0%",
     xValue = function(d) { return d[0]; },
     yValue = function(d) { return d[1]; },
     allocationValue = function(d) { return d[2]; },
@@ -22,7 +23,6 @@ function columnChart() {
                 return [xValue.call(data, d, i), yValue.call(data, d, i), allocationValue.call(data, d, i)];
             });
 
-console.log(data);
 
             // Update the x-scale.
             xScale.domain(data.map(function(d) { return d[0]; }))
@@ -41,8 +41,10 @@ console.log(data);
             
             gEnter.append("g").attr("class", "bars");
             gEnter.append("g").attr("class", "y axis");
+            gEnter.append("g").attr("class", "y axis minor");
             gEnter.append("g").attr("class", "x axis");
             gEnter.append("g").attr("class", "x axis zero");
+            
 
             // Update the outer dimensions.
             svg.attr("width", width).attr("height", height);
@@ -80,17 +82,27 @@ console.log(data);
                     .attr("class", "totalror")
                     .attr("y1", yScale(totalror))
                     .attr("y2", yScale(totalror))
-                    .attr("x1", function(d) { return X(d); })
-                    .attr("x2", function(d) { return X(d) + xScale.rangeBand(); });
-                    
-            console.log(totalror);
+                    .attr("x1", function(d) { return xScale(d[0]); })
+                    .attr("x2", function(d) { return xScale(d[0]) + xScale.rangeBand(); });
     
-            g.select(".x.axis").attr("transform", "translate(0," + (height - margin.top - margin.bottom) + ")").call(xAxis.orient("bottom"));
+            g.select(".x.axis")
+                .attr("transform", "translate(0," + (height - margin.top - margin.bottom) + ")")
+                .call(xAxis
+                    .orient("bottom"));
 
-            g.select(".x.axis.zero").attr("transform", "translate(0," + Y0() + ")").call(xAxis.tickFormat("").tickSize(0));
+            //g.select(".x.axis.zero").attr("transform", "translate(0," + Y0() + ")").call(xAxis.tickFormat("").tickSize(0));
+            
 
             // Update the y-axis.
-            g.select(".y.axis").call(yAxis);
+            g.select(".y.axis").call(yAxis
+                .tickFormat(d3.format(yTickFormat)));
+                
+            g.select(".y.axis.minor").call(yAxis
+                .tickFormat("")
+                .tickValues([0])
+                .tickSize(-xScale.rangeExtent()[1],0));
+                
+                console.log(xScale.rangeBand());
         });
     }
 
@@ -150,6 +162,13 @@ console.log(data);
         totalror = _;
         return chart;
     };
+    
+    chart.yTickFormat = function(_) {
+        if (!arguments.length) return yTickFormat;
+        yTickFormat = _;
+        return chart;
+    };
+
 
     return chart;
 }
