@@ -1,3 +1,6 @@
 [submodule "public/column-chart"]
 	path = public/column-chart
 	url = git@gist.github.com:3766585.git
+[submodule "public/density-column"]
+	path = public/density-column
+	url = git@gist.github.com:3779709.git
